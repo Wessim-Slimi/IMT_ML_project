@@ -104,7 +104,7 @@ models = {
 			'SVR'                       : SVR_Model(),
 			'DecisionTreeRegressor'     : Decision_Tree_Model(),
 			'knn'                       : Knn_Model(),
-			'GradientBoostingRegressor' : Gradient_Boosting_Model()
+			#'GradientBoostingRegressor' : Gradient_Boosting_Model()
 		 }
 
 # Reading data and splitting trainig and testing
@@ -129,7 +129,7 @@ res = pd.DataFrame()
 res['GroundTruth'] = y_test
 
 # fitting the models and making predictions
-for model_name in tqdm(models.keys()):
+for model_name in models.keys():
 	print('fitting model : {}'.format(model_name))
 	res[model_name] = model_fit_and_predict(models[model_name], x_train, y_train, x_test)
 
@@ -137,11 +137,15 @@ for model_name in tqdm(models.keys()):
 errors = {}
 for model_name in models.keys():
 	errors[model_name] =  RMSE(y_test, res[model_name].values)
+# printing errors
+print('errors : ', errors)
 
 # plotting predictions
 plt.figure(figsize=(40,10))
-res.plot()
+res.plot(alpha=0.5)
 plt.show()
+
+
 
 
 
