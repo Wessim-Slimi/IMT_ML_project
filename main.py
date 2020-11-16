@@ -1,5 +1,5 @@
 """
-	/* Example  1 of execution
+	/* Example of execution
 	 * $python main.py 
 	 * --root=data 
 	 * --file_name=ProstateCancer.csv 
@@ -9,15 +9,6 @@
 	 * --test_size=0.2 
 	 * --corr_ratio=0.5 
 	 */
-
-	 /* Example  1 of execution
-	  * python main.py 
-	  * --root=data 
-	  * --file_name=HousingData.csv 
-	  * --target=MEDV --sep=, 
-	  * --test_size=0.2 
-	  * --corr_ratio=0.5  
-	  */
 """
 
 from utilities import *
@@ -25,7 +16,7 @@ from utilities import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", type=str, default='data',
-                    help="Name of the folder containing the dataset")
+                    help="Root of the program")
 parser.add_argument("--file_name", type=str,
                     help="Name of the dataset csv file")
 parser.add_argument("--target", type=str,
