@@ -37,9 +37,16 @@ from sklearn.ensemble import GradientBoostingRegressor
 def read_data(data_path, sep):
 	# reading dataset
 	df = pd.read_csv(data_path, sep=sep)
-	# removing nan values from dataset
-	df = df.dropna()
+	# no need to drop na values here, they will be imputed 
 	return df
+
+def impute_missing_data(df):
+    """
+    Inputation for numerical and categorical value
+    """
+    df.replace([np.inf, -np.inf], np.nan, inplace= True)
+    df.fillna(df.median(), inplace = True)
+    return df
 
 def normalize_shuffle_split(df, test_size):
 	# normalizing data
