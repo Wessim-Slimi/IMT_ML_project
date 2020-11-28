@@ -55,7 +55,7 @@ models = {
 			'SVR'                       : SVR_Model(),
 			'DecisionTreeRegressor'     : Decision_Tree_Model(),
 			'knn'                       : Knn_Model(),
-			#'GradientBoostingRegressor' : Gradient_Boosting_Model()
+			'GradientBoostingRegressor' : Gradient_Boosting_Model()
 		 }
 
 # Reading data and splitting trainig and testing
@@ -64,8 +64,13 @@ df = read_data(data_path, sep=sep)
 # Encoding the categorical data
 df = one_hot_encode(df, categorical_names)
 
+# Replacing nans with median
+df = impute_missing_data(df)
+
 # Normalizing the data
 df_train, df_test = normalize_shuffle_split(df, test_size)
+
+
 
 # Selecting only highly correlated features 
 column_sels =  get_correlated_features_name(df_train, target, corr_ratio)
@@ -91,7 +96,10 @@ for col in x_train.columns:
 # calculates the prediction of each model
 # stores errors in errors
 # and plot the predictions
-res, errors = fit_models(models, x_train, x_test, y_train, y_test)
+res, errors = fit_models(models, x_train, x_test, y_train, y_test,column_sels, target)
+
+# plotting results
+plot_errors(res, file_name)
 
 print('*************************************************')
 print('Printing Results | "MODEL" : RMSE')

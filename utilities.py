@@ -8,6 +8,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+plt.style.use('ggplot')
 import seaborn as sns
 import os
 import argparse
@@ -26,6 +27,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.ensemble import GradientBoostingRegressor
+from sklearn import tree
+
 
 
 
@@ -42,7 +45,7 @@ def read_data(data_path, sep):
 
 def impute_missing_data(df):
     """
-    Inputation for numerical and categorical value
+    Imputation for numerical and categorical value
     """
     df.replace([np.inf, -np.inf], np.nan, inplace= True)
     df.fillna(df.median(), inplace = True)
@@ -148,7 +151,7 @@ def model_fit_and_predict(model,x_train, y_train, x_test):
 def RMSE(y, y_pred):
 	return np.sqrt(np.mean((y-y_pred)**2))
 
-def fit_models(models, x_train, x_test, y_train, y_test):
+def fit_models(models, x_train, x_test, y_train, y_test, feature_names, class_names):
 	# dataframe that will contain predictions for each model
 	res = pd.DataFrame()
 	res['GroundTruth'] = y_test
@@ -160,8 +163,17 @@ def fit_models(models, x_train, x_test, y_train, y_test):
 		res[model_name] = model_fit_and_predict(models[model_name], x_train, y_train, x_test)
 		# calculating RMSE of each model
 		errors[model_name] =  RMSE(y_test, res[model_name].values)
-	# plotting results
-	plt.figure(figsize=(40,10))
-	res.plot(alpha=0.5)
-	plt.show()
+		if model_name == 'DecisionTreeRegressor':
+			depth = models[model_name].best_params_
+			print(depth)
+			m = DecisionTreeRegressor(max_depth=depth['max_depth'])
+			m.fit(x_train, y_train)
+			fig, ax = plt.subplots()
+			tree.plot_tree(m, feature_names=feature_names, class_names=class_names, filled=True, fontsize=8, ax=ax)
+			plt.show()
 	return res, errors
+	# plotting results
+def plot_errors(res, title):
+	
+	res.plot(alpha=0.8, title=title).get_figure().savefig(title.split('.')[0])
+	plt.show()

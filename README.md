@@ -3,9 +3,11 @@ This is a project from Machine Learning Course in IMT Atlantique. It fits severa
 
 
 ## 1. Execution
-To train the models run the following command : '>python BostonHousing.py --root=data --file_name=ProstateCancer.csv --target=lpsa --categorical_names train --sep=; --test_size=0.2 --corr_ratio=0.5 ' <br />
+To train the models run the following command :<br />
+ Prostate Cancer Dataset : '>python main.py --root=data --file_name=ProstateCancer.csv --target=lpsa --categorical_names train --sep=; --test_size=0.2 --corr_ratio=0.5 ' <br />
+ Boston Housing Dataset : '>python main.py --root=data --file_name=HousingData.csv --target=MEDV --sep=, --test_size=0.2 --corr_ratio=0.5  ' <br />
 
---root : Directory path to the root folder containing the script and the datasets. Default value equal to 'data'. <br />
+--root : Directory path to the folder containing the datasets. Default value equal to 'data'. <br />
 --file_name : Name of the dataset folder. It must be a csv file. <br />
 --target : Name of the variable to predict <br />
 --categorical_names : Specify all the categorical feature names that need to be encoded. <br />
