@@ -37,7 +37,7 @@ args = parser.parse_args()
 root 	   = args.root #'data'
 file_name  = args.file_name #'ProstateCancer.csv'
 target     = args.target #'lpsa'
-sep 	   = args.sep #';'
+sep 	   = args.sep #';' sep = ',' for HousingData and sep = ';' for ProstateData
 
 test_size  = args.test_size #0.2 # 80% for trainig and 20% for testing
 corr_ratio = args.corr_ratio #0.5
@@ -46,6 +46,11 @@ categorical_names = args.categorical_names #['train']
 
 data_path  = os.path.join(root,file_name)
 
+#Here we record in a dictionarry the corresponding target for each dataset
+df_target = {
+    "HousingData" : "MEDV",
+    "ProstateCancer" : "lpsa"
+    }
 
 
 models = {
