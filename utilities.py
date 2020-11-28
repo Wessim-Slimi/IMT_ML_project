@@ -51,6 +51,23 @@ def impute_missing_data(df):
     df.fillna(df.median(), inplace = True)
     return df
 
+def serie_points_cloud(data_path, sep, df_target):
+    df = read_data(data_path, sep)
+    df = impute_missing_data(df)
+    
+    file = os.path.basename(data_path)
+    file_name = os.path.splitext(file)[0]
+    target = df_target[file_name]
+    
+    for column in df:
+        X = df[column]
+        y = df[target]
+        
+        plt.scatter(X,y)
+        plt.xlabel(column)
+        plt.ylabel(target)
+        plt.show()
+
 def normalize_shuffle_split(df, test_size):
 	# normalizing data
 	normalized_df=(df-df.min())/(df.max()-df.min())
