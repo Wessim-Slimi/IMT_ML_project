@@ -82,6 +82,18 @@ def one_hot_encode(df, categorical_names):
 		df[name] = L
 	return df
 
+# Performs a Skewness removal on a array of data
+def log_transform_arr(X,value=0.3):
+	return np.log1p(X)
+# Performs a Skewness removal on a dataframe of data
+def log_transform_df(df, value=0.3):
+	for col in df.columns:
+	    if np.abs(df[col].skew()) > value:
+	        df[col] = np.log1p(df[col])
+	        df[col] = log_transform_arr(df[col], value)
+	return df
+
+
 # return highly correlated features
 # Input 1 : dataframe
 # Input 2 : target column name

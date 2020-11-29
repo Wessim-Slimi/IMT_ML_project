@@ -55,7 +55,7 @@ models = {
 			'SVR'                       : SVR_Model(),
 			'DecisionTreeRegressor'     : Decision_Tree_Model(),
 			'knn'                       : Knn_Model(),
-			'GradientBoostingRegressor' : Gradient_Boosting_Model()
+			#'GradientBoostingRegressor' : Gradient_Boosting_Model()
 		 }
 
 # Reading data and splitting trainig and testing
@@ -79,18 +79,24 @@ print("Selected Columns for the Model : {}".format(column_sels))
 # preparing the dataset
 x_train = df_train.loc[:,column_sels]
 y_train = df_train[target]
-x_test = df_test.loc[:,column_sels]
-y_test = df_test[target]
+x_test  = df_test.loc[:,column_sels]
+y_test 	= df_test[target]
 
 
 
 # Let's try to remove the skewness of the data through log transformation.
-y_train =  np.log1p(y_train)
+"""y_train =  np.log1p(y_train)
 y_test =  np.log1p(y_test)
 for col in x_train.columns:
     if np.abs(x_train[col].skew()) > 0.3:
         x_train[col] = np.log1p(x_train[col])
-        x_test[col] = np.log1p(x_test[col])
+        x_test[col] = np.log1p(x_test[col])"""
+
+y_train = log_transform_arr(y_train)
+y_test 	= log_transform_arr(y_test)
+
+x_train = log_transform_df(x_train)
+x_test 	= log_transform_df(x_test)
 
 # this function fit each model given in models
 # calculates the prediction of each model
