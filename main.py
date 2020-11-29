@@ -1,18 +1,17 @@
 """
 	/* Example of execution
-	 * $python main.py 
-	 * --root=data 
-	 * --file_name=ProstateCancer.csv 
-	 * --target=lpsa 
-	 * --categorical_names=train 
-	 * --sep=; 
-	 * --test_size=0.2 
-	 * --corr_ratio=0.5 
+	 * $python main.py
+	 * --root=data
+	 * --file_name=ProstateCancer.csv
+	 * --target=lpsa
+	 * --categorical_names=train
+	 * --sep=;
+	 * --test_size=0.2
+	 * --corr_ratio=0.5
 	 */
 """
 
 from utilities import *
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--root", type=str, default='data',
@@ -32,7 +31,6 @@ parser.add_argument("--corr_ratio", type=float, default= 0.5,
 
 args = parser.parse_args()
 
-
 # defining Constants
 root 	   = args.root #'data'
 file_name  = args.file_name #'ProstateCancer.csv'
@@ -46,8 +44,6 @@ categorical_names = args.categorical_names #['train']
 
 data_path  = os.path.join(root,file_name)
 
-
-
 models = {
 			'linear_regression'         : Linear_Model(),
 			'linear_ridge_regression'   : Linear_Regression_Ridge_Model(),
@@ -55,7 +51,7 @@ models = {
 			'SVR'                       : SVR_Model(),
 			'DecisionTreeRegressor'     : Decision_Tree_Model(),
 			'knn'                       : Knn_Model(),
-			#'GradientBoostingRegressor' : Gradient_Boosting_Model()
+			'GradientBoostingRegressor' : Gradient_Boosting_Model()
 		 }
 
 # Reading data and splitting trainig and testing
@@ -70,9 +66,7 @@ df = impute_missing_data(df)
 # Normalizing the data
 df_train, df_test = normalize_shuffle_split(df, test_size)
 
-
-
-# Selecting only highly correlated features 
+# Selecting only highly correlated features
 column_sels =  get_correlated_features_name(df_train, target, corr_ratio)
 print("Selected Columns for the Model : {}".format(column_sels))
 
@@ -82,19 +76,9 @@ y_train = df_train[target]
 x_test  = df_test.loc[:,column_sels]
 y_test 	= df_test[target]
 
-
-
 # Let's try to remove the skewness of the data through log transformation.
-"""y_train =  np.log1p(y_train)
-y_test =  np.log1p(y_test)
-for col in x_train.columns:
-    if np.abs(x_train[col].skew()) > 0.3:
-        x_train[col] = np.log1p(x_train[col])
-        x_test[col] = np.log1p(x_test[col])"""
-
 y_train = log_transform_arr(y_train)
 y_test 	= log_transform_arr(y_test)
-
 x_train = log_transform_df(x_train)
 x_test 	= log_transform_df(x_test)
 
@@ -110,6 +94,3 @@ plot_errors(res, file_name)
 print('*************************************************')
 print('Printing Results | "MODEL" : RMSE')
 print (json.dumps(errors,sort_keys=True, indent=4))
-
-
-
