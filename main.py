@@ -46,7 +46,7 @@ categorical_names = args.categorical_names #['train']
 
 data_path  = os.path.join(root,file_name)
 
-#Here we record in a dictionarry the corresponding target for each dataset
+#we create in a dictionary the corresponding target (variable to be predicted) for each dataset
 df_target = {
     "HousingData" : "MEDV",
     "ProstateCancer" : "lpsa"
