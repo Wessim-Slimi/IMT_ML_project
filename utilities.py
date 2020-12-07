@@ -78,7 +78,7 @@ def normalize_shuffle_split(df, test_size):
 # Input 1 : dataframe
 # Input 2 : Column name of the categorical data present in the dataframe
 # Output  : dataframe with encoded data
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def one_hot_encode(df, categorical_names):
     """
     Transform categorical features into numerical ones
@@ -106,7 +106,7 @@ def log_transform_arr(X,value=0.3):
     """
     return np.log1p(X)
 # # Input 1 : Dataframe
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def log_transform_df(df, value=0.3):
     """
     Performs a Skewness removal on a dataframe of data
@@ -139,7 +139,7 @@ def get_correlated_features_name(df, y_name, threshold=0.5):
     return column_names
 
 
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def Linear_Model():
     """
     Defining Linear Model
@@ -155,7 +155,7 @@ def Linear_Regression_Ridge_Model():
     model = linear_model.Ridge()
     return model
 
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def Polynomial_Model():
     """
     Defining Polynomial Model
@@ -173,7 +173,7 @@ def SVR_Model(n_splits=10,kernel='rbf',C=1e3, gamma=0.1 ):
     #proceeding to GridSearch to tune hyperparameters
     model = GridSearchCV(svr_regressor, cv=kf, param_grid={"C": [1e0, 1e1, 1e2, 1e3], "gamma": np.logspace(-2, 2, 5)}, scoring='neg_mean_squared_error')
     return model
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def Decision_Tree_Model(n_splits=10, max_depth=5):
     """
     Defining Decision Tree Model
@@ -194,7 +194,7 @@ def Knn_Model(n_splits=10,n_neighbors=7 ):
     knn = KNeighborsRegressor(n_neighbors=n_neighbors)
     model = GridSearchCV(knn, cv=kf, param_grid={"n_neighbors" : [2, 3, 4, 5, 6, 7]}, scoring='neg_mean_squared_error')
     return model
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def Gradient_Boosting_Model(n_splits=10,alpha=0.9, learning_rate=0.05, max_depth=2, min_samples_leaf=5, min_samples_split=2, n_estimators=100, random_state=30):
     """
     Defining GradientBoostingRegressor
@@ -220,7 +220,7 @@ def model_fit_and_predict(model,x_train, y_train, x_test):
     y_pred = model.predict(x_test)
     return y_pred
 
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def RMSE(y, y_pred):
     """
     Calculates Root Mean Squared Error
@@ -260,7 +260,7 @@ def fit_models(models, x_train, x_test, y_train, y_test, feature_names, class_na
             plt.show()
     return res, errors
 # plotting results
-# @Author : Mohamed Ouassim Slimi
+# @Author : Louis Sant'Anna
 def plot_errors(res, title):
     res.plot(alpha=0.8, title=title).get_figure().savefig(title.split('.')[0])
     plt.show()
