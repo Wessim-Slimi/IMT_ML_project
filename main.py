@@ -35,7 +35,7 @@ args = parser.parse_args()
 root 	   = args.root #'data'
 file_name  = args.file_name #'ProstateCancer.csv'
 target     = args.target #'lpsa'
-sep 	   = args.sep #';'
+sep 	   = args.sep #';' sep = ',' for HousingData and sep = ';' for ProstateData
 
 test_size  = args.test_size #0.2 # 80% for trainig and 20% for testing
 corr_ratio = args.corr_ratio #0.5
@@ -44,6 +44,16 @@ categorical_names = args.categorical_names #['train']
 
 data_path  = os.path.join(root,file_name)
 
+<<<<<<< HEAD
+#we create in a dictionary the corresponding target (variable to be predicted) for each dataset
+df_target = {
+    "HousingData" : "MEDV",
+    "ProstateCancer" : "lpsa"
+    }
+
+
+=======
+>>>>>>> dac71435fd7d72b3fa97a2e86a57a51725a6c7ac
 models = {
 			'linear_regression'         : Linear_Model(),
 			'linear_ridge_regression'   : Linear_Regression_Ridge_Model(),
