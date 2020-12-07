@@ -68,6 +68,9 @@ def serie_points_cloud(data_path, sep, df_target):
         plt.ylabel(target)
         plt.show()
 
+def data_description(df):
+    return df.head(), df.describe()
+
 def normalize_shuffle_split(df, test_size):
 	# normalizing data
 	normalized_df=(df-df.min())/(df.max()-df.min())
