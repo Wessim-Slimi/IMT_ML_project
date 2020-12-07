@@ -44,16 +44,13 @@ categorical_names = args.categorical_names #['train']
 
 data_path  = os.path.join(root,file_name)
 
-<<<<<<< HEAD
+
 #we create in a dictionary the corresponding target (variable to be predicted) for each dataset
 df_target = {
     "HousingData" : "MEDV",
     "ProstateCancer" : "lpsa"
     }
 
-
-=======
->>>>>>> dac71435fd7d72b3fa97a2e86a57a51725a6c7ac
 models = {
 			'linear_regression'         : Linear_Model(),
 			'linear_ridge_regression'   : Linear_Regression_Ridge_Model(),
